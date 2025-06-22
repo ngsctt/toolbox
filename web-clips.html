@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web clip generator</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    form {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+    }
+
+    label {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: .5rem;
+      grid-template-columns: subgrid;
+    }
+
+    h2 {
+      grid-column: 1 / -1;
+    }
+
+    input,
+    textarea,
+    select {
+      font-size: max(16px, 1em);
+    }
+
+    input,
+    textarea,
+    select,
+    .desc {
+      grid-column: 2 / -1;
+    }
+
+    span {
+      grid-column: 1 / 2;
+      justify-self: end;
+    }
+
+    .buttons {
+      grid-column: 1 / -1;
+      justify-self: center;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Web clip generator</h1>
+    <!-- <div id="dropzone">
+      <input type="file" id="existing">
+    </div> -->
+    <form method="dialog">
+      <h2>Profile settings</h2>
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" id="name" placeholder="Web Clip profile">
+        <div class="desc">
+          The human-readable name for the profile, which doesn’t need to be unique. The system displays
+          this value on the Detail screen.
+        </div>
+      </label>
+      <label>
+        <span>Identifier</span>
+        <input type="text" name="id" id="id" placeholder="com.example.webclip.name" required>
+        <div class="desc">
+          <strong>(Required)</strong> The reverse-DNS style identifier (<code>com.example.myprofile</code>, for example)
+          that identifies
+          the profile. The system uses this string to determine whether to replace an existing profile or add it as a
+          new
+          profile.
+        </div>
+      </label>
+      <!-- <label>
+        <span>Organisation</span>
+        <input type="text" name="org" id="org">
+        <desc>
+          The human-readable string that contains the name of the organization that provided the profile.
+        </desc>
+      </label> -->
+      <label>
+        <span>Description</span>
+        <textarea name="desc" id="desc" cols="30" rows="5"></textarea>
+        <div class="desc">
+          The description of the profile, shown on the Detail screen for the profile. Make this
+          description detailed enough to help the user decide whether to install the profile.
+        </div>
+      </label>
+      <!-- <label>
+        <span>Consent message</span>
+        <textarea name="consent" id="consent" cols="30" rows="10"></textarea>
+        <div class="desc">
+          The system always displays this agreement in a dialog, and the user needs to agree before the system can install the profile.
+        </div>
+      </label> -->
+      <!-- <label>
+        <span>Automatically remove</span>
+        <select name="remove" id="remove">
+          <option value="never">never</option>
+          <option value="date">on date</option>
+          <option value="interval">after interval</option>
+        </select>
+        <input type="date" name="remove-date" id="remove-date">
+        <div class="desc">
+          The date when the system automatically removes the profile.
+        </div>
+        <div id="remove-interval">
+          <label>
+            <input type="number" name="remove-days" id="remove-days" value="90">
+            days
+          </label>
+          <label>
+            <input type="number" name="remove-hours" id="remove-hours" value="0">
+            hours
+          </label>
+        </div>
+        <div class="desc">
+          The number of seconds until the profile is automatically removed. If the RemovalDate key is present, the system uses whichever field yields the earliest date.
+        </div>
+      </label> -->
+      <h2>Web Clip settings</h2>
+      <label>
+        <span>Label</span>
+        <input type="text" name="label" id="label" placeholder="Website Name">
+        <div class="desc">
+          <strong>(Required)</strong> The name of the web clip that the system displays on the Home screen.
+        </div>
+      </label>
+      <label>
+        <span>URL</span>
+        <input type="url" name="url" id="url" placeholder="https://example.com">
+        <div class="desc">
+          <strong>(Required)</strong> The URL of the web clip.
+        </div>
+      </label>
+      <label>
+        <span>Icon</span>
+        <input type="file" name="icon" id="icon" accept="image/*">
+        <div class="desc">
+          The PNG icon to show on the Home screen. If not set, the system displays a white square. For best results,
+          provide a square image that’s no larger than 400 x 400 pixels and less than 1 MB when uncompressed. The
+          graphics
+          file is automatically scaled and cropped to fit, if necessary, and converted to PNG format. Web clip icons are
+          144 x 144 pixels for iPad devices with a Retina display, and 114 x 114 pixels for iPhone devices. To prevent
+          the
+          device from adding a shine to the image, set Precomposed to <code>true</code>.
+        </div>
+      </label>
+      <label>
+        <span>Icon URL</span>
+        <input type="url" name="icon-url" id="icon-url" placeholder="https://example.com/apple-touch-icon.png">
+        <div class="desc">
+          <button type="button" id="load-icon-url">Load icon from URL</button>
+        </div>
+      </label>
+      <label>
+        <span>Removable</span>
+        <input type="checkbox" name="removable" id="removable" checked>
+        <div class="desc">
+          If <code>true</code>, the system enables removing the web clip.
+        </div>
+      </label>
+      <label>
+        <span>Precomposed icon</span>
+        <input type="checkbox" name="precomposed" id="precomposed">
+        <div class="desc">
+          If <code>true</code>, the system prevents SpringBoard from adding shine to the icon.
+        </div>
+      </label>
+      <label>
+        <span>Fullscreen</span>
+        <input type="checkbox" name="fullscreen" id="fullscreen" checked>
+        <div class="desc">
+          If <code>true</code>, the system launches the web clip as a full-screen web app.
+        </div>
+      </label>
+      <label>
+        <span>Ignore manifest scope</span>
+        <input type="checkbox" name="ignore-scope" id="ignore-scope" checked>
+        <div class="desc">
+          If true, a full screen web clip can navigate to an external web site without showing Safari UI. Otherwise,
+          Safari UI appears when navigating away from the web clip’s URL. This key has no effect when FullScreen is
+          false. Available in iOS 14 and later.
+        </div>
+      </label>
+      <div class="buttons">
+        <input type="submit" value="Generate">
+        <input type="reset" value="Clear">
+      </div>
+    </form>
+  </main>
+
+  <script type="module">
+    import { restoreInputs, cacheInputs } from './cache-inputs.js';
+    import { newWebClip, imageConverter } from './web-clips.js';
+    import { download } from './utils.js';
+
+    const INPUT_CACHE_KEY = 'webclips-generator-cache';
+
+    const inputs = {
+      profile_name: document.getElementById('name'),
+      profile_id: document.getElementById('id'),
+      // org: document.getElementById('org'),
+      desc: document.getElementById('desc'),
+      // consent: document.getElementById('consent'),
+      // remove: document.getElementById('remove'),
+      // remove_date: document.getElementById('remove-date'),
+      // remove_days: document.getElementById('remove-days'),
+      // remove_hours: document.getElementById('remove-hours'),
+      label: document.getElementById('label'),
+      url: document.getElementById('url'),
+      icon: document.getElementById('icon'),
+      icon_url: document.getElementById('icon-url'),
+      removable: document.getElementById('removable'),
+      precomposed: document.getElementById('precomposed'),
+      fullscreen: document.getElementById('fullscreen'),
+      ignore_scope: document.getElementById('ignore-scope'),
+    };
+    const elements = {
+      load_icon_url:  document.getElementById('load-icon-url'),
+    }
+
+    window.addEventListener('load', event => {
+      restoreInputs(INPUT_CACHE_KEY);
+    });
+    window.addEventListener('change', event => {
+      cacheInputs(INPUT_CACHE_KEY, [...Object.values(inputs), Object.values(elements)]);
+    });
+
+    elements.load_icon_url.addEventListener('click', async event => {
+      if (!inputs.icon_url.value) {
+        console.warn("No icon URL to load");
+        return;
+      }
+      const iconUrl = new URL(inputs.icon_url.value);
+      const response = await fetch(iconUrl.href);
+      console.log(response);
+      const blob = await response.blob();
+      // console.log(blob);
+      if (blob.type.startsWith('image/')) {
+        const file = new File([blob], 'loaded icon.png', {type: blob.type});
+        const txlist = new DataTransfer();
+        txlist.items.add(file);
+        inputs.icon.files = txlist.files;
+      }
+    });
+
+    window.addEventListener('submit', async event => {
+      console.log(event);
+      const options = {};
+
+      options.profile_id = inputs.profile_id.value
+      options.profile_name = inputs.profile_name.value
+      options.desc = inputs.desc.value
+      options.label = inputs.label.value;
+      options.url = inputs.url.value;
+      options.icon = inputs.icon.files[0];
+      options.removeable = inputs.removeable;
+      options.precomposed = inputs.precomposed.checked;
+      options.fullscreen = inputs.fullscreen.checked;
+      options.ignore_scope = inputs.ignore_scope.checked;
+
+      const profile = await newWebClip(options);
+      download(profile);
+    });
+  </script>
+</body>
+
+</html>
