@@ -45,7 +45,8 @@ export function imageConverter (imageFile) {
       }
       context.drawImage(img, 0, 0, canvas.width, canvas.height);
       const dataURL = canvas.toDataURL('image/png', 1)
-      resolve(dataURL?.replace('data:image/png;base64,', ''));
+      // resolve(dataURL?.replace('data:image/png;base64,', ''));
+      resolve(dataURL);
     }
     img.src = objURL;
   })

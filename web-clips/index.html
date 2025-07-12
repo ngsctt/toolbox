@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web clip generator</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="../styles.css">
   <style>
     form {
       display: grid;
@@ -50,6 +50,9 @@
 </head>
 
 <body>
+  <nav>
+    <a href="../">← back to home</a>
+  </nav>
   <main>
     <h1>Web clip generator</h1>
     <!-- <div id="dropzone">
@@ -196,9 +199,9 @@
   </main>
 
   <script type="module">
-    import { restoreInputs, cacheInputs } from './cache-inputs.js';
+    import { restoreInputs, cacheInputs } from '../cache-inputs.js';
     import { newWebClip, imageConverter } from './web-clips.js';
-    import { download } from './utils.js';
+    import { download } from '../utils.js';
 
     const INPUT_CACHE_KEY = 'webclips-generator-cache';
 
