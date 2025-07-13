@@ -57,12 +57,12 @@
   filter: grayscale(1);
 }
 
-table {
+table.sim {
   table-layout: fixed;
   border-collapse: collapse;
 }
 
-thead th {
+.sim thead th {
   width: 20%;
   text-align: center;
   position: sticky;
@@ -72,7 +72,13 @@ thead th {
   background-color: Canvas;
 }
 
-td, th {
+.sim td,
+.sim th {
   text-align: center;
   padding: .1rem .7rem .1rem .5rem;
+}
+
+tbody th {
+  text-align: left;
+}
 }

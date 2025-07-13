@@ -15,25 +15,86 @@
   </nav>
   <main>
     <h1>Colour blindness palette simulator</h1>
-      <table>
+    <details>
+      <summary>Prevalence</summary>
+      <table class="prevalence">
         <thead>
           <tr>
-            <th></th>
-            <th>Protanopia</th>
-            <th>Deuteranopia</th>
-            <th>Tritanopia</th>
-            <th>Monochromacy</th>
+            <th colspan="2">Type</th>
+            <th>Males</th>
+            <th>Females</th>
           </tr>
         </thead>
-        <tbody id="palette"></tbody>
-        <tfoot>
+        <tbody>
           <tr>
-            <td>
-              <button id="add">Add</button>
-            </td>
+            <th rowspan="2">Protan</th>
+            <th>Protanomoly</th>
+            <td>1.08%</td>
           </tr>
-        </tfoot>
+          <tr>
+            <th>Protanopia</th>
+            <td>1.01%</td>
+          </tr>
+          <tr>
+            <th rowspan="2">Deutan</th>
+            <th>Deuteranomoly</th>
+            <td>4.63%</td>
+          </tr>
+          <tr>
+            <th>Deuteranopia</th>
+            <td>1.24%</td>
+          </tr>
+          <tr>
+            <th rowspan="2">Tritan</th>
+            <th>Tritanomoly</th>
+          </tr>
+          <tr>
+            <th>Tritanopia</th>
+            <td>0.002–0.008% (est.)</td>
+          </tr>
+          <tr>
+            <th rowspan="2">Mono</th>
+            <th>Blue cone monochromacy</th>
+            <td>0.001% (est.)</td>
+          </tr>
+          <tr>
+            <th>Rod monochromacy</th>
+            <td>~0.002%</td>
+          </tr>
+        </tbody>
       </table>
+      <!-- <td>Protanomoly: 1.08% males<br>Protanopia: 1.01% males</td>
+        <td>Deuteranomoly: 4.63% males<br>Deuteranopia: 1.24% males</td>
+        <td>Tritanopia: est. 0.002–0.008% males</td>
+        <td>Blue cone monochromacy: est. 0.001% males<br>Rod monochromacy: ~0.002%</td> -->
+    </details>
+
+    <table class="sim">
+      <thead>
+        <tr>
+          <th>Original</th>
+          <th>Protan</th>
+          <th>Deutan</th>
+          <th>Tritan</th>
+          <th>Monochromacy</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Viénot 1999</td>
+          <td>Viénot 1999</td>
+          <td>Brettel 1997</td>
+          <td>CSS <code>grayscale()</code></td>
+        </tr>
+      </thead>
+      <tbody id="palette"></tbody>
+      <tfoot>
+        <tr>
+          <td>
+            <button id="add">Add</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </main>
 
   <template id="colour">
