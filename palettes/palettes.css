@@ -63,15 +63,15 @@
 }
 
 .protan .well-inner {
-  filter: url(./filters.svg#protanopia);
+  filter: url(#protanopia);
 }
 
 .deutan .well-inner {
-  filter: url(./filters.svg#deuteranopia);
+  filter: url(#deuteranopia);
 }
 
 .tritan .well-inner {
-  filter: url(./filters.svg#tritanopia);
+  filter: url(#tritanopia);
 }
 
 .mono .well-inner {
