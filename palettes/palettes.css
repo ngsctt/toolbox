@@ -30,8 +30,7 @@
   display: inline-block;
   width: 5rem;
   height: 5rem;
-  border: thin solid currentColor;
-  box-shadow: .2rem .2rem 0 0 currentColor;
+  border: thin solid black;
   appearance: none;
   padding: 0;
   background-color: var(--colour);
@@ -52,6 +51,15 @@
 .well::-moz-color-swatch {
   border-color: transparent !important;
   border: none !important;
+}
+
+.well,
+.well-inner,
+.well::-moz-color-swatch {
+  border-radius: 25%;
+  box-shadow:
+    inset 0rem 0rem 0 0.05rem black,
+    inset .1rem .1rem 0 0.1rem black;
 }
 
 .protan .well-inner {
@@ -106,4 +114,10 @@ tbody th {
     justify-self: center
   }
 }
+
+#add {
+  width: 4rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-size: 1.25rem;
 }
