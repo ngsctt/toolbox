@@ -34,6 +34,19 @@
   box-shadow: .2rem .2rem 0 0 currentColor;
   appearance: none;
   padding: 0;
+  background-color: var(--colour);
+  overflow: hidden;
+}
+
+.well-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: inherit;
+  opacity: var(--anomaly, 1);
 }
 
 .well::-moz-color-swatch {
@@ -41,19 +54,19 @@
   border: none !important;
 }
 
-.protan {
+.protan .well-inner {
   filter: url(#protanopia);
 }
 
-.deutan {
+.deutan .well-inner {
   filter: url(#deuteranopia);
 }
 
-.tritan {
+.tritan .well-inner {
   filter: url(#tritanopia);
 }
 
-.mono {
+.mono .well-inner {
   filter: grayscale(1);
 }
 
@@ -80,5 +93,17 @@ table.sim {
 
 tbody th {
   text-align: left;
+}
+
+.anomaly-label {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: start;
+  gap: .1rem .5rem;
+
+  .span {
+    grid-column: 1 / -1;
+    justify-self: center
+  }
 }
 }

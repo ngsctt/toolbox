@@ -69,6 +69,14 @@
         <td>Blue cone monochromacy: est. 0.001% males<br>Rod monochromacy: ~0.002%</td> -->
     </details>
 
+    <label class="anomaly-label">
+      <span class="span">-anomaly</span>
+      <span>Normal</span>
+      <input type="range" name="anomoly" id="anomaly" min="0" max="1" step="0.01" value="0.66">
+      <span>-anopia</span>
+      <input class="span" id="anomaly-value" type="number" min="0" max="1" step="0.01" value="0.66"></span>
+    </label>
+
     <table class="sim">
       <thead>
         <tr>
@@ -121,19 +129,27 @@
       </td>
       <td class="variant protan">
         <!-- <h2>Protanopia</h2> -->
-        <div class="well"></div>
+        <div class="well">
+          <div class="well-inner"></div>
+        </div>
       </td>
       <td class="variant deutan">
         <!-- <h2>Deuteranopia</h2> -->
-        <div class="well"></div>
+        <div class="well">
+          <div class="well-inner"></div>
+        </div>
       </td>
       <td class="variant tritan">
         <!-- <h2>Tritanopia</h2> -->
-        <div class="well"></div>
+        <div class="well">
+          <div class="well-inner"></div>
+        </div>
       </td>
       <td class="variant mono">
         <!-- <h2>Monochromacy</h2> -->
-        <div class="well"></div>
+        <div class="well">
+          <div class="well-inner"></div>
+        </div>
       </td>
     </tr>
   </template>
@@ -202,6 +218,8 @@
   <script>
     const template = document.getElementById('colour');
     const palette = document.getElementById('palette');
+    const anomaly = document.getElementById('anomaly');
+    const anomaly_value = document.getElementById('anomaly-value');
     const add = document.getElementById('add');
     const colours = document.querySelectorAll('.colour');
 
@@ -209,18 +227,24 @@
       const primary = colour.querySelector('input.well');
       if (primary?.value == undefined) return;
       const wells = colour.querySelectorAll('div.well');
-      wells.forEach(w => w.style.backgroundColor = primary.value);
+      wells.forEach(w => w.style = `--colour: ${primary.value}`);
+    }
+    function syncAnomaly (target) {
+      palette.style = `--anomaly: ${target.value};`;
+      if (target === anomaly) anomaly_value.value = target.value;
+      else anomaly.value = target.value;
     }
 
     window.addEventListener('input', event => {
-      if (event.target.tagName !== 'INPUT' || event.target.type !== 'color' || !event.target.classList.contains('well')) return;
-      const colour = event.target.closest('.colour');
-      if (!colour) return;
-      // const wells = colour.querySelectorAll('div.well');
-      // wells.forEach(w => w.style.backgroundColor = event.target.value);
-      syncWells(colour);
+      if (event.target === anomaly || event.target === anomaly_value) syncAnomaly(event.target);
+      else if (event.target.tagName === 'INPUT' && event.target.type === 'color' && event.target.classList.contains('well')) {
+        const colour = event.target.closest('.colour');
+        if (!colour) return;
+        syncWells(colour);
+      }
     });
     window.addEventListener('load', event => {
+      syncAnomaly(anomaly);
       colours.forEach(c => syncWells(c));
     });
     add.addEventListener('click', event => {
