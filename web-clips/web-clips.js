@@ -80,7 +80,7 @@ function convertToPlist (doc, value) {
 
     else if (value instanceof Data) {
       const e = doc.createElement('data');
-      e.textContent = value.toString();
+      e.textContent = value.toString().replace('data:image/png;base64,','');
       return e;
     }
 

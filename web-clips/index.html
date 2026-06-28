@@ -46,6 +46,14 @@
       grid-column: 1 / -1;
       justify-self: center;
     }
+
+    #icon-preview {
+      float: right;
+      margin: 0 0 1rem 1rem;
+      border: thin solid currentColor;
+      background-image: url('./blank-ios-app-icon.png');
+      background-size: contain;
+    }
   </style>
 </head>
 
@@ -145,13 +153,14 @@
         <span>Icon</span>
         <input type="file" name="icon" id="icon" accept="image/*">
         <div class="desc">
-          The PNG icon to show on the Home screen. If not set, the system displays a white square. For best results,
-          provide a square image that’s no larger than 400 x 400 pixels and less than 1 MB when uncompressed. The
-          graphics
-          file is automatically scaled and cropped to fit, if necessary, and converted to PNG format. Web clip icons are
-          144 x 144 pixels for iPad devices with a Retina display, and 114 x 114 pixels for iPhone devices. To prevent
-          the
-          device from adding a shine to the image, set Precomposed to <code>true</code>.
+          <img id="icon-preview" src="" height="144" width="144">
+          <div>
+            The PNG icon to show on the Home screen. If not set, the system displays a white square. For best results,
+            provide a square image that’s no larger than 400 x 400 pixels and less than 1 MB when uncompressed. The
+            graphics file is automatically scaled and cropped to fit, if necessary, and converted to PNG format. Web clip icons are
+            144 x 144 pixels for iPad devices with a Retina display, and 114 x 114 pixels for iPhone devices. To prevent
+            the device from adding a shine to the image, set Precomposed to <code>true</code>.
+          </div>
         </div>
       </label>
       <label>
@@ -226,6 +235,14 @@
     };
     const elements = {
       load_icon_url:  document.getElementById('load-icon-url'),
+      icon_preview: document.getElementById('icon-preview'),
+    }
+
+    function updatePreview () {
+      if (inputs.icon.files.length > 0) {
+        if (elements.icon_preview.src) URL.revokeObjectURL(elements.icon_preview.src);
+        elements.icon_preview.src = URL.createObjectURL(inputs.icon.files[0]);
+      }
     }
 
     window.addEventListener('load', event => {
@@ -233,6 +250,7 @@
     });
     window.addEventListener('change', event => {
       cacheInputs(INPUT_CACHE_KEY, [...Object.values(inputs), Object.values(elements)]);
+      updatePreview();
     });
 
     elements.load_icon_url.addEventListener('click', async event => {
@@ -250,6 +268,7 @@
         const txlist = new DataTransfer();
         txlist.items.add(file);
         inputs.icon.files = txlist.files;
+        updatePreview();
       }
     });
 
